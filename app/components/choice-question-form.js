@@ -5,24 +5,22 @@ import { action } from '@ember/object';
 
 export default class ChoiceQuestionFormComponent extends Component {
   @tracked question = {};
+  @tracked details = {};
   @tracked index;
-  @tracked total;
-  @tracked questionIndex;
-  @tracked nextQuestion;
+  @tracked submited = false;
 
   constructor() {
     super(...arguments);
-    debugger;
-    this.question = this.args.question;
+    this.question = this.args.question.question;
     this.index = this.args.index + 1;
-    this.total = this.args.total;
-    this.questionIndex = this.args.questionIndex;
-    this.nextQuestion = this.args.nextQuestion;
+    this.details = this.args.question.details;
+    setTimeout(() => {
+      document.getElementById(this.question.identifier).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);    
   }
 
   @action
   async submit(e) {
-    debugger;
     let next = "";
     if (this.question.jumps.length > 0) {
       for (let jump of this.question.jumps) {        
@@ -34,13 +32,14 @@ export default class ChoiceQuestionFormComponent extends Component {
         }
       }
     }
-    debugger;
+    
     let model = {
-      index: this.questionIndex,
+      index: this.details.questionIndex,
       next: next,
       identifier: this.question.identifier,
       answer: this.value,
+      finish: this.details.questionIndex === this.details.totalQuestions
     }
-    this.nextQuestion(e, model);
+    this.details.nextQuestion(e, model);
   }
 }

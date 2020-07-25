@@ -61,4 +61,12 @@
    font-weight: 700;
  }
  
- 
+ .btn-primary {
+  background-color: #2B6CDE;
+  border-color: #2B6CDE;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #2B6CDE;
+  background-color: #2B6CDE;
+}

@@ -6,12 +6,16 @@
     <form class="needs-validation">
       <div class="row">
         <div class="col-sm-12 col-md-6 offset-md-3 mb-3">
+          {{#if (eq this.question.multiline "true")}}
+          <Textarea class="form-control" rows="3" type="text" @value={{this.value}} />
+          {{else}}
           <Input class="form-control" type="text" @value={{this.value}} />
+          {{/if}}
         </div>
       </div>
       <br class="mb-4">
       <button class="btn btn-primary" {{on "click" this.submit}} type="button" type="button">
-         {{#if (eq this.details.questionIndex this.details.totalQuestions)}}
+        {{#if (eq this.details.questionIndex this.details.totalQuestions)}}
         Finish
         {{else}}
         Next

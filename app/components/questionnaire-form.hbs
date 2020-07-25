@@ -22,11 +22,7 @@ In this interview, you will be shown a number of questions and asked to answer e
       <QuestionForm @question={{question}} @index={{index}} />
     {{/if}}
     {{#if (eq question.question.question_type 'multiple-choice')}}
-      {{#if (eq question.question.multiple 'true')}}
-        <ChoiceQuestionForm @question={{question}} @index={{index}} }/>
-      {{else}}
-        <SingleChoiceQuestionForm @question={{question}} @index={{index}}/>
-      {{/if}}
+      <ChoiceQuestionForm @question={{question}} @index={{index}} }/>
     {{/if}}    
     {{/each}}
     
