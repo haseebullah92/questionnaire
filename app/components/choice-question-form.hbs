@@ -1,15 +1,15 @@
-<div class="py-5 my-5 text-center card" id={{ this.question.identifier }}>
+<div class="py-5 my-5 text-center card" id={{ @question.identifier }}>
   <div class="card-body">
-    <h2>Question {{ this.index }}</h2>
-    <p class="lead">Q. {{ this.question.headline }}</p>
+    <h3>Q {{add @index 1}}. {{ @question.headline }}</h3>
+    <p class="lead">{{ @question.description }}</p>
     <br class="mb-4">
     <form class="needs-validation">
        <div class="row">
             <div class="col-sm-12 col-md-6 offset-md-3 mb-3">
               {{#each this.question.choices as |choice index|}}
               <div class="custom-control custom-radio">
-                <Input class="custom-control-input" id="radio-{{ this.index }}-{{ index }}" name="radio-{{ this.index }}-{{ this.index }}" type="radio" @value={{this.value}} value="{{ choice.value }}" />
-                <label class="custom-control-label" for="radio-{{ this.index }}-{{ index }}">{{ choice.label }}</label>
+                <Input class="custom-control-input" id="radio-{{ @index }}-{{ index }}" name="radio-{{ @index }}-{{ @index }}" type="radio" @value={{this.value}} value="{{ choice.value }}" />
+                <label class="custom-control-label" for="radio-{{ @index }}-{{ index }}">{{ choice.label }}</label>
               </div>
               {{/each}}
               <div class="invalid-feedback">
@@ -19,7 +19,7 @@
        </div>
        <br class="mb-4">
        <button class="btn btn-primary" {{on "click" this.submit}} type="button" type="button">
-         {{#if (eq this.details.questionIndex this.details.totalQuestions)}}
+         {{#if (eq this.details.questionIndex @totalQuestions)}}
         Finish
         {{else}}
         Next

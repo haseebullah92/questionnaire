@@ -5,25 +5,22 @@ import { action } from '@ember/object';
 
 export default class QuestionFormComponent extends Component {
   @tracked question = {};
-  @tracked details = {};
-  @tracked index;
+  @tracked submited = false;
 
   constructor() {
     super(...arguments);
-    this.question = this.args.question.question;
-    this.index = this.args.index + 1;
-    this.details = this.args.question.details;
+    this.question = this.args.question;
     setTimeout(() => {
       document.getElementById(this.question.identifier).scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100); 
+    }, 100);    
   }
 
   @action
   async submit(e) {
     let next = "";
     if (this.question.jumps.length > 0) {
-      for (let jump of this.question.jumps) {        
-        for (let condition of jump.conditions) {
+      for (const jump of this.question.jumps) {        
+        for (const condition of jump.conditions) {
           if (condition.field == this.question.identifier && condition.value == this.value)
           {
             next = jump.destination.id;
@@ -33,12 +30,12 @@ export default class QuestionFormComponent extends Component {
     }
     
     let model = {
-      index: this.details.questionIndex,
+      index: this.question.questionIndex,
       next: next,
       identifier: this.question.identifier,
       answer: this.value,
-      finish: this.details.questionIndex === this.details.totalQuestions
+      finish: (this.question.questionIndex + 1) === this.args.totalQuestions
     }
-    this.details.nextQuestion(e, model);
+    this.args.nextQuestion(e, model);
   }
 }

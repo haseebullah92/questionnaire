@@ -1,26 +1,26 @@
-<div class="py-5 my-5 text-center card" id={{ this.question.identifier }}>
+<div class="py-5 my-5 text-center card" id={{ @question.identifier }}>
   <div class="card-body">
-    <h2>Question {{ this.index }}</h2>
-    <p class="lead">Q. {{ this.question.headline }}</p>
+    <h3>Q {{add @index 1}}. {{ @question.headline }}</h3>
+    <p class="lead">{{ @question.description }}</p>
     <br class="mb-4">
     <form class="needs-validation">
-      <div class="row">
-        <div class="col-sm-12 col-md-6 offset-md-3 mb-3">
-          {{#if (eq this.question.multiline "true")}}
-          <Textarea class="form-control" rows="3" type="text" @value={{this.value}} />
-          {{else}}
-          <Input class="form-control" type="text" @value={{this.value}} />
-          {{/if}}
-        </div>
-      </div>
-      <br class="mb-4">
-      <button class="btn btn-primary" {{on "click" this.submit}} type="button" type="button">
-        {{#if (eq this.details.questionIndex this.details.totalQuestions)}}
+       <div class="row">
+         <div class="col-sm-12 col-md-6 offset-md-3 mb-3">
+           {{#if (eq this.question.multiline "true")}}
+           <Textarea class="form-control" rows="3" type="text" @value={{this.value}} />
+           {{else}}
+           <Input class="form-control" type="text" @value={{this.value}} />
+           {{/if}}
+         </div>
+       </div>
+       <br class="mb-4">
+       <button class="btn btn-primary" {{on "click" this.submit}} type="button" type="button">
+         {{#if (eq (add this.question.questionIndex  1) @totalQuestions)}}
         Finish
         {{else}}
         Next
         {{/if}} 
-       </button>     
-    </form> 
+       </button>             
+     </form> 
   </div>      
 </div>
