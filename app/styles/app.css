@@ -55,6 +55,7 @@
   */
  .cover {
    padding: 0 1.5rem;
+   word-wrap: break-word;
  }
  .cover .btn-lg {
    padding: .75rem 1.25rem;
@@ -69,4 +70,8 @@
 .custom-control-input:checked ~ .custom-control-label::before {
   border-color: #2B6CDE;
   background-color: #2B6CDE;
+}
+
+.custom-control-label {
+  display: inline-block;
 }

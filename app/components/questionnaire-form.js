@@ -23,6 +23,7 @@ export default class QuestionnaireFormComponent extends Component {
         headline: question.get("headline"),
         description: question.get("description"),
         required: question.get("required"),
+        multiline: question.get("multiline"),
         multiple: question.get("multiple"),
         choices: question.get("choices"),
         jumps: question.get("jumps")
@@ -37,15 +38,20 @@ export default class QuestionnaireFormComponent extends Component {
       this.router.transitionTo('thankyou');
     }
     else {
-      if (next.next){      
-        const currentIndex = this.questionsLoop.findIndex(x => x.identifier == next.identifier);
-        const deleteCount = this.questionsLoop.length - currentIndex;
-          this.questionsLoop.splice(currentIndex + 1, deleteCount);     
-        const nextIndex = this.questions.findIndex(x => x.identifier == next.next); 
-        this.questionsLoop.pushObject({
-          ...this.questions[nextIndex],
-          questionIndex: nextIndex,
-        });
+      if (next.next){               
+        const nextIndex = this.questions.findIndex(x => x.identifier == next.next);
+        const nextQuestion = this.questions[nextIndex];
+        const existingIndex = this.questionsLoop.findIndex(x => x.identifier == nextQuestion.identifier);
+        if (existingIndex === -1) {
+          const currentIndex = this.questionsLoop.findIndex(x => x.identifier == next.identifier);
+          const deleteCount = this.questionsLoop.length - currentIndex;
+          this.questionsLoop.splice(currentIndex + 1, deleteCount);    
+          this.questionsLoop.pushObject({
+            ...nextQuestion,
+            questionIndex: nextIndex,
+          });         
+        }
+        this.scrollToQuestion(nextQuestion.identifier);
       } else {
         const nextIndex = this.questions.findIndex(x => x.identifier == next.identifier) + 1;
         const nextQuestion = this.questions[nextIndex];
@@ -55,18 +61,27 @@ export default class QuestionnaireFormComponent extends Component {
             ...nextQuestion,
             questionIndex: nextIndex,
           });         
-        }      
+        } 
+        this.scrollToQuestion(nextQuestion.identifier);     
       }    
     }    
+  }
+
+  scrollToQuestion (identifier) {
+    setTimeout(() => {
+      document.getElementById(identifier).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);  
   }
 
   @action
   async submit(e) {
     e.preventDefault();
     this.questionsLoop = [];
+    const nextQuestion = this.questions[0];
     this.questionsLoop.pushObject({
-      ...this.questions[0],
+      ...nextQuestion,
       questionIndex: 1
-    });  
+    });
+    this.scrollToQuestion(nextQuestion.identifier);    
   }
 }

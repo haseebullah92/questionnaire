@@ -10,7 +10,7 @@ let questionnaire = {
         "headline": "Wen möchtest Du versichern?",
         "description": null,
         "required": false,
-        "multiple": "false",
+        "multiple": "true",
         "choices": [
           {
             "label": "Meine Familie mit Kindern",

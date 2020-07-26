@@ -10,6 +10,7 @@ export default class QuestionModel extends Model {
   @attr description;
   @attr required;
   @attr multiple;
+  @attr multiline;
   @attr choices;
   @attr jumps;
   @attr display;

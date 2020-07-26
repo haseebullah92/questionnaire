@@ -7,12 +7,12 @@
        <div class="row">
             <div class="col-sm-12 col-md-6 offset-md-3 mb-3">
               {{#each @question.choices as |choice index|}}
-              <div class="custom-control custom-radio">
-                <Input class="custom-control-input" id="radio-{{ @index }}-{{ index }}" name="radio-{{ @index }}-{{ @index }}" type="radio" @value={{this.value}} value="{{ choice.value }}" />
-                <label class="custom-control-label" for="radio-{{ @index }}-{{ index }}">{{ choice.label }}</label>
+              <div class="custom-control custom-checkbox">
+                <Input type="checkbox" class="custom-control-input" id="checkbox-{{ @index }}-{{ index }}" {{on "change" this.change}} data-value="{{ choice.value }}" />
+                <label class="custom-control-label" for="checkbox-{{ @index }}-{{ index }}">{{ choice.label }}</label>
               </div>
               {{/each}}
-              <div class="invalid-feedback {{if (and this.submitted @question.required (not this.value)) 'd-block' }}" >
+              <div class="invalid-feedback {{if (and this.submitted @question.required (eq this.value.length 0)) 'd-block' }}" >
                 <b>*This question is required.</b>
               </div>
             </div>
