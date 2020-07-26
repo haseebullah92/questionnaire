@@ -1,6 +1,6 @@
 <div class="py-5 my-5 text-center card" id={{ @question.identifier }}>
   <div class="card-body">
-    <h3>Q {{add @index 1}}. {{ @question.headline }}</h3>
+    <h3 data-test-question-form-h3>Q {{add @index 1}}. {{ @question.headline }}</h3>
     <p class="lead">{{ @question.description }}</p>
     <br class="mb-4">
     <form class="needs-validation">
@@ -9,7 +9,7 @@
            {{#if (eq @question.multiline "true")}}
            <Textarea class="form-control" rows="3" type="text" @value={{this.value}} />
            {{else}}
-           <Input class="form-control" type="text" @value={{this.value}} />
+           <Input class="form-control" type="text" @value={{this.value}} data-test-question-form-input/>
            {{/if}}
            <div class="invalid-feedback {{if (and this.submitted @question.required (not this.value)) 'd-block' }}" >
              <b>*This question is required.</b>
@@ -17,7 +17,7 @@
          </div>
        </div>
        <br class="mb-4">
-       <button class="btn btn-primary" {{on "click" this.submit}} type="button" type="button">
+       <button class="btn btn-primary" {{on "click" this.submit}} type="button" type="button" data-test-question-form-button>
          {{#if (eq (add @question.questionIndex  1) @totalQuestions)}}
         Finish
         {{else}}

@@ -14,6 +14,7 @@ export default class ChoiceQuestionFormComponent extends Component {
 
   @action
   async submit(e) {
+    e.preventDefault();
     this.submitted = true;
     if (!this.question.required || this.value) {
       let next = "";
@@ -28,14 +29,14 @@ export default class ChoiceQuestionFormComponent extends Component {
         }
       }
       
-      let model = {
+      const model = {
         index: this.question.questionIndex,
         next: next,
         identifier: this.question.identifier,
         answer: [this.value],
         finish: this.question.questionIndex === this.totalQuestions
       }
-      this.args.nextQuestion(e, model);
+      this.args.nextQuestion(model);
     }    
   }
 }

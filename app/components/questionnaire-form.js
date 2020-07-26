@@ -32,9 +32,13 @@ export default class QuestionnaireFormComponent extends Component {
   }
 
   @action
-  async nextQuestion(e, next) {
-    e.preventDefault();
+  async nextQuestion(next) {  
+    this.saveAnswerToArray({
+      identifier: next.identifier,
+      values: next.answer
+    });  
     if (next.finish) {
+      // Save answer to database here
       this.router.transitionTo('thankyou');
     }
     else {
@@ -71,6 +75,14 @@ export default class QuestionnaireFormComponent extends Component {
     setTimeout(() => {
       document.getElementById(identifier).scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);  
+  }
+
+  saveAnswerToArray (ans) {
+    const existingAns = this.answers.findIndex(x => x.identifier === ans.identifier);
+    if (existingAns > -1) {
+      this.answers.removeAt(existingAns);      
+    }
+    this.answers.pushObject(ans);
   }
 
   @action

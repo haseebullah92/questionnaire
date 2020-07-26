@@ -1,4 +1,4 @@
-let questionnaire = {
+const questionnaire = {
   questionnaire: {
     "id": 40,
     "identifier": "ewBzTS",
@@ -10,7 +10,7 @@ let questionnaire = {
         "headline": "Wen möchtest Du versichern?",
         "description": null,
         "required": false,
-        "multiple": "true",
+        "multiple": "false",
         "choices": [
           {
             "label": "Meine Familie mit Kindern",

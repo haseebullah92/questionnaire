@@ -73,5 +73,5 @@
 }
 
 .custom-control-label {
-  display: inline-block;
+  display: unset;
 }
